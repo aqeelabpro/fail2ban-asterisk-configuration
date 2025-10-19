@@ -5,9 +5,10 @@ This README provides instructions for configuring **Fail2Ban** to protect your A
 ## Table of Contents
 1. [Fail2Ban Installation](#fail2ban-installation)
 2. [Fail2Ban Configuration for Asterisk](#fail2ban-configuration-for-asterisk)
-3. [Checking Fail2Ban Status](#checking-fail2ban-status)
-4. [Troubleshooting Fail2Ban](#troubleshooting-fail2ban)
-5. [Conclusion](#conclusion)
+3. [Restart Fail2Ban](#restart-fail2ban-to-apply-changes)
+4. [Checking Fail2Ban Status](#checking-fail2ban-status)
+5. [Troubleshooting Fail2Ban](#troubleshooting-fail2ban)
+6. [Conclusion](#conclusion)
 
 ---
 
@@ -69,6 +70,22 @@ sudo systemctl start fail2ban
    - `bantime`: The duration (in seconds) for which an IP is banned.
 
 3. **Save the file and exit**.
+
+---
+
+### Restart Fail2Ban to apply changes
+
+After saving your changes to `/etc/fail2ban/jail.local`, restart the Fail2Ban service to load the new configuration:
+
+```bash
+sudo systemctl restart fail2ban
+```
+
+Alternatively, you can reload Fail2Ban without fully restarting the service:
+
+```bash
+sudo fail2ban-client reload
+```
 
 ---
 
