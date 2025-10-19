@@ -22,13 +22,15 @@ To install **Fail2Ban**, run the following command:
 ```bash
 sudo apt-get update
 sudo apt-get install fail2ban
-```
+````
 
 Once installed, the service should start automatically. If it doesn't, start it manually with:
 
 ```bash
 sudo systemctl start fail2ban
 ```
+
+[Top](#fail2ban-configuration-for-asterisk-and-freepbx)
 
 ---
 
@@ -37,7 +39,7 @@ sudo systemctl start fail2ban
 ### 1. Configure Fail2Ban for Asterisk
 
 1. **Create or Edit `jail.local`**:
-   
+
    The default configuration for Fail2Ban is stored in `/etc/fail2ban/jail.conf`. However, it’s recommended to modify the `jail.local` file to ensure your custom changes persist through Fail2Ban updates.
 
    Open `/etc/fail2ban/jail.local`:
@@ -63,17 +65,19 @@ sudo systemctl start fail2ban
    bantime = 60
    ```
 
-   - `enabled = true`: Enables the Fail2Ban filter for Asterisk.
-   - `logpath`: Points to your Asterisk log file (`/var/log/asterisk/full`).
-   - `action`: Defines the action to take when an IP is banned. Here, we use `iptables-allports` to block all ports for the offending IP.
-   - `maxretry`: The number of allowed failed login attempts before the IP is banned.
-   - `bantime`: The duration (in seconds) for which an IP is banned.
+   * `enabled = true`: Enables the Fail2Ban filter for Asterisk.
+   * `logpath`: Points to your Asterisk log file (`/var/log/asterisk/full`).
+   * `action`: Defines the action to take when an IP is banned. Here, we use `iptables-allports` to block all ports for the offending IP.
+   * `maxretry`: The number of allowed failed login attempts before the IP is banned.
+   * `bantime`: The duration (in seconds) for which an IP is banned.
 
 3. **Save the file and exit**.
 
+[Top](#fail2ban-configuration-for-asterisk-and-freepbx)
+
 ---
 
-### Restart Fail2Ban to apply changes
+## Restart Fail2Ban to apply changes
 
 After saving your changes to `/etc/fail2ban/jail.local`, restart the Fail2Ban service to load the new configuration:
 
@@ -86,6 +90,8 @@ Alternatively, you can reload Fail2Ban without fully restarting the service:
 ```bash
 sudo fail2ban-client reload
 ```
+
+[Top](#fail2ban-configuration-for-asterisk-and-freepbx)
 
 ---
 
@@ -117,6 +123,8 @@ If the service is not running, start it with:
 sudo systemctl start fail2ban
 ```
 
+[Top](#fail2ban-configuration-for-asterisk-and-freepbx)
+
 ---
 
 ## Troubleshooting Fail2Ban
@@ -147,28 +155,34 @@ sudo fail2ban-client set asterisk unbanip <IP_ADDRESS>
 
 Replace `<IP_ADDRESS>` with the IP you wish to unban.
 
+[Top](#fail2ban-configuration-for-asterisk-and-freepbx)
+
 ---
 
 ## Conclusion
 
 By configuring **Fail2Ban** for Asterisk, you can effectively protect your system from unauthorized access attempts, especially brute-force attacks. Fail2Ban scans the log files for malicious activity and bans offending IPs, thus securing your server.
 
-- **Fail2Ban** is an important layer of defense, helping to prevent brute-force attacks.
-- Make sure your `jail.local` file is correctly configured and that the service is running.
-- Regularly monitor the Fail2Ban logs to ensure everything is functioning as expected.
+* **Fail2Ban** is an important layer of defense, helping to prevent brute-force attacks.
+* Make sure your `jail.local` file is correctly configured and that the service is running.
+* Regularly monitor the Fail2Ban logs to ensure everything is functioning as expected.
 
 For any other issues or concerns, check the Fail2Ban logs and modify your configuration as necessary.
+
+[Top](#fail2ban-configuration-for-asterisk-and-freepbx)
 
 ---
 
 ### Troubleshooting
 
-- **Check for Issues**: If Fail2Ban isn't banning malicious IPs, make sure the correct log paths are set.
-- **Permissions**: Ensure the log files that Fail2Ban monitors are accessible by the Fail2Ban process (permissions for `/var/log/asterisk/full`).
-- **Service Restart**: If changes to `jail.local` don't seem to take effect, restart the Fail2Ban service:
+* **Check for Issues**: If Fail2Ban isn't banning malicious IPs, make sure the correct log paths are set.
+* **Permissions**: Ensure the log files that Fail2Ban monitors are accessible by the Fail2Ban process (permissions for `/var/log/asterisk/full`).
+* **Service Restart**: If changes to `jail.local` don't seem to take effect, restart the Fail2Ban service:
 
   ```bash
   sudo systemctl restart fail2ban
   ```
+
+[Top](#fail2ban-configuration-for-asterisk-and-freepbx)
 
 ---
